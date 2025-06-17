@@ -1,0 +1,132 @@
+.landing-wrapper {
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #fefefe;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  position: relative;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #001f3f;
+}
+
+.nav-links button {
+  margin-left: 15px;
+  padding: 8px 16px;
+  background: none;
+  border: 1px solid #001f3f;
+  color: #001f3f;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.nav-links .signup {
+  background-color: #001f3f;
+  color: white;
+}
+
+.video-container {
+  position: relative;
+  height: calc(100vh - 80px); /* minus navbar height */
+  padding: 20px 40px;
+  box-sizing: border-box;
+}
+
+.video-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.content {
+  position: absolute;
+  bottom: 60px;
+  left: 40px;
+  color: white;
+  max-width: 600px;
+}
+
+.content h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.content p {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.cta-btn {
+  padding: 14px 28px;
+  font-size: 16px;
+  background-color: #ff7f50;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cta-btn:hover {
+  background-color: #ff5500;
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 20px;
+  }
+
+  .nav-links {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .video-container {
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+  .video-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .content {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    right: 20px;
+    text-align: left;
+  }
+
+  .content h1 {
+    font-size: 28px;
+  }
+
+  .content p {
+    font-size: 16px;
+  }
+
+  .cta-btn {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}
