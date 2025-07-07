@@ -3,36 +3,35 @@ const path = require('path');
 const fs = require('fs');
 
 const uploadsDir = path.join(__dirname, '..', 'uploads');
+
+// Ensure uploads folder exists
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir);
 }
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, uploadsDir); // Save to uploads/
+    cb(null, uploadsDir);
   },
   filename: function (req, file, cb) {
-    const timestamp = Date.now();
     const ext = path.extname(file.originalname);
     const base = path.basename(file.originalname, ext).replace(/\s+/g, '-');
-    cb(null, `${base}-${timestamp}${ext}`); // e.g., myphoto-1750123492034.png
-  },
+    const uniqueName = `${base}-${Date.now()}${ext}`;
+    cb(null, uniqueName);
+  }
 });
 
-// Only accept images
 const fileFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image/')) {
     cb(null, true);
   } else {
-    cb(new Error('❌ Only image files are allowed!'), false);
+    cb(new Error('Only image files are allowed'), false);
   }
 };
 
-// Final upload middleware
 const upload = multer({
-  storage: storage,
-  fileFilter: fileFilter,
+  storage,
+  fileFilter
 });
 
 module.exports = upload;
-
