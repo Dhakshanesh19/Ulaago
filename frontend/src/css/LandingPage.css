@@ -1,113 +1,237 @@
 /* LandingPage.css - Scoped styles with lp- prefix */
 
 .lp-container {
-    font-family: Arial, sans-serif;
-    color: #333;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+/* Background Lottie Animation */
+.lp-bg-animation-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.lp-bg-animation {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  object-fit: cover;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.lp-dark-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 1;
+}
+
+/* Navbar */
+.lp-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  z-index: 3;
+  position: relative;
+}
+
+.lp-logo h1 {
+  margin: 0;
+  color: #00bcd4;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.lp-nav-links {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.lp-nav-links li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.lp-nav-links li a:hover {
+  color: #00bcd4;
+}
+
+/* Hero Section */
+.lp-hero {
+  padding: 140px 20px 100px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: auto;
+}
+
+.lp-hero h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #ffffff;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.lp-hero p {
+  font-size: 1.25rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+  color: #e0e0e0;
+}
+
+.lp-hero-button {
+  margin-top: 20px;
+}
+
+.lp-button {
+  padding: 12px 28px;
+  background-color: #00bcd4;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+  box-shadow: 0 4px 14px rgba(0, 188, 212, 0.3);
+}
+
+.lp-button:hover {
+  background-color: #0097a7;
+}
+
+/* Features Section */
+.lp-features {
+  padding: 80px 20px;
+  background-color: #f5f5f5;
+  text-align: center;
+  color: #333;
+  position: relative;
+  z-index: 2;
+}
+
+.lp-features h3 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #2c3e50;
+}
+
+.lp-feature-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 0;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.lp-feature-list li {
+  flex: 1 1 280px;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.lp-feature-list li:hover {
+  transform: translateY(-6px);
+}
+
+.lp-feature-list h4 {
+  color: #0077cc;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.lp-feature-list p {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+/* About Section */
+.lp-about {
+  padding: 80px 20px;
+  background-color: #eaf6ff;
+  color: #333;
+  text-align: center;
+  z-index: 2;
+  position: relative;
+}
+
+.lp-about p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 700px;
+  margin: auto;
+}
+
+/* Footer */
+.lp-footer {
+  padding: 30px 20px;
+  background-color: #222;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.lp-footer-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.lp-footer-links li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.lp-footer-links li a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .lp-hero h2 {
+    font-size: 2.2rem;
   }
-  
-  /* Navbar */
-  .lp-navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #f5f5f5;
+
+  .lp-hero p {
+    font-size: 1.1rem;
   }
-  
-  .lp-logo h1 {
-    margin: 0;
-    color: #0077cc;
-  }
-  
-  .lp-nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-  
-  .lp-nav-links li a,
-  .lp-nav-links li > a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-  }
-  
-  /* Hero Section */
-  .lp-hero {
-    padding: 60px 20px;
-    text-align: center;
-    background-color: #eaf6ff;
-  }
-  
-  .lp-hero-button {
-    margin-top: 20px;
-  }
-  
-  .lp-button {
-    padding: 10px 20px;
-    background-color: #0077cc;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    border-radius: 4px;
-  }
-  
-  .lp-button:hover {
-    background-color: #005fa3;
-  }
-  
-  /* Features Section */
-  .lp-features {
-    padding: 40px 20px;
-    background-color: #fff;
-  }
-  
+
   .lp-feature-list {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    padding: 0;
-    margin-top: 20px;
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .lp-feature-list li {
-    flex: 1 1 30%;
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
+
+  .lp-nav-links {
+    flex-direction: column;
+    gap: 10px;
   }
-  
-  /* About Section */
-  .lp-about {
-    padding: 40px 20px;
-    background-color: #f0f8ff;
-  }
-  
-  /* Footer */
-  .lp-footer {
-    padding: 20px;
-    background-color: #222;
-    color: #fff;
-    text-align: center;
-  }
-  
-  .lp-footer-links {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 0;
-    margin-top: 10px;
-  }
-  
-  .lp-footer-links li a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .lp-footer-links li a:hover {
-    text-decoration: underline;
-  }
-  
+}

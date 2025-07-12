@@ -1,4 +1,4 @@
-const Package = require('../models/package');
+const Package = require('../models/Package');
 
 // ✅ Create a new package (admin only)
 exports.createPackage = async (req, res) => {

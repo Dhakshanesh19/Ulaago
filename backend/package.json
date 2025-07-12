@@ -19,7 +19,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/ulaago-backend"
+    "url": "https://github.com/Dhakshanesh19/Ulaago/tree/main/backend"
   },
   "dependencies": {
     "axios": "^1.10.0",

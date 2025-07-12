@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/CreatePackagePage.css';
+import createImg from '../assets/create.jpg';
 
 const CreatePackagePage = () => {
   const navigate = useNavigate();
@@ -25,10 +26,7 @@ const CreatePackagePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-
-    Object.entries(form).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
+    Object.entries(form).forEach(([key, value]) => formData.append(key, value));
 
     try {
       const res = await fetch('http://localhost:5000/api/packages/create', {
@@ -48,74 +46,76 @@ const CreatePackagePage = () => {
   };
 
   return (
-    <div className="create-package-container" id="createPackagePage">
-      <h2 className="create-package-title">📦 Create New Travel Package</h2>
-      <form
-        onSubmit={handleSubmit}
-        encType="multipart/form-data"
-        className="create-package-form"
-        id="createPackageForm"
-      >
-        <input
-          type="text"
-          name="packageName"
-          placeholder="Package Name"
-          value={form.packageName}
-          onChange={handleChange}
-          required
-          className="form-input"
-        />
-        <input
-          type="text"
-          name="location"
-          placeholder="Location"
-          value={form.location}
-          onChange={handleChange}
-          required
-          className="form-input"
-        />
-        <input
-          type="number"
-          name="price"
-          placeholder="Price (in ₹)"
-          value={form.price}
-          onChange={handleChange}
-          required
-          className="form-input"
-        />
-        <input
-          type="text"
-          name="duration"
-          placeholder="Duration (e.g. 3 Days / 2 Nights)"
-          value={form.duration}
-          onChange={handleChange}
-          required
-          className="form-input"
-        />
-        <textarea
-          name="description"
-          placeholder="Package Description"
-          value={form.description}
-          onChange={handleChange}
-          rows={4}
-          required
-          className="form-textarea"
-        ></textarea>
+    <div className="create-package-wrapper">
+      <img src={createImg} alt="Background" className="create-background" />
+      <div className="create-form-overlay">
+        <h2 className="create-package-title">📦 Create New Travel Package</h2>
+        <form
+          onSubmit={handleSubmit}
+          encType="multipart/form-data"
+          className="create-package-form"
+        >
+          <input
+            type="text"
+            name="packageName"
+            placeholder="Package Name"
+            value={form.packageName}
+            onChange={handleChange}
+            required
+            className="form-input"
+          />
+          <input
+            type="text"
+            name="location"
+            placeholder="Location"
+            value={form.location}
+            onChange={handleChange}
+            required
+            className="form-input"
+          />
+          <input
+            type="number"
+            name="price"
+            placeholder="Price (in ₹)"
+            value={form.price}
+            onChange={handleChange}
+            required
+            className="form-input"
+          />
+          <input
+            type="text"
+            name="duration"
+            placeholder="Duration (e.g. 3 Days / 2 Nights)"
+            value={form.duration}
+            onChange={handleChange}
+            required
+            className="form-input"
+          />
+          <textarea
+            name="description"
+            placeholder="Package Description"
+            value={form.description}
+            onChange={handleChange}
+            rows={4}
+            required
+            className="form-textarea"
+          ></textarea>
 
-        <label className="form-label">Cover Image</label>
-        <input
-          type="file"
-          name="coverImage"
-          accept="image/*"
-          onChange={handleChange}
-          required
-          className="form-input"
-        />
+          <label className="form-label">Cover Image</label>
+          <input
+            type="file"
+            name="coverImage"
+            accept="image/*"
+            onChange={handleChange}
+            required
+            className="form-input"
+          />
 
-        <button type="submit" className="form-button">
-          ✅ Create Package
-        </button>
-      </form>
+          <button type="submit" className="form-button">
+            ✅ Create Package
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

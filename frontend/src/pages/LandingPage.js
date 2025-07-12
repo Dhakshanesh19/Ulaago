@@ -1,11 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/LandingPage.css';
+import Lottie from 'lottie-react';
+import worldMapAnimation from '../assets/WorldMap.json';
 
 const LandingPage = () => {
   return (
     <div id="landing-page" className="lp-container">
-     
+
+      {/* 🌍 World Map Animated Background */}
+      <div className="lp-bg-animation-wrapper">
+  <div className="lp-dark-overlay"></div>
+  <Lottie animationData={worldMapAnimation} loop autoplay className="lp-bg-animation" />
+</div>
+
 
       {/* Hero Section */}
       <section className="lp-hero">

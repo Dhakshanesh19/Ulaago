@@ -1,5 +1,5 @@
 const Booking = require('../models/booking');
-const Package = require('../models/package');
+const Package = require('../models/Package');
 const path = require('path');
 
 // ✅ Create a new booking (User)
