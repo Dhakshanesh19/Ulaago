@@ -1,6 +1,7 @@
 const Booking = require('../models/booking');
-const Package = require('../models/Package');
+const Package = require('../models/Package'); // 👈 UPPERCASE 'P'
 const path = require('path');
+
 
 // ✅ Create a new booking (User)
 // ✅ Create a new booking (User)
