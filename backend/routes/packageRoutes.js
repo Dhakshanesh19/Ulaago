@@ -5,30 +5,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 const isAdmin = require('../middleware/isAdmin');
 const Package = require('../models/package');
 
-// ✅ GET all packages (Public)
-router.get('/', async (req, res) => {
-  try {
-    const packages = await Package.find();
-    res.status(200).json(packages);
-  } catch (err) {
-    res.status(500).json({ msg: 'Failed to fetch packages', error: err.message });
-  }
-});
-
-// ✅ GET package by ID (Public)
-router.get('/:id', async (req, res) => {
-  try {
-    const pkg = await Package.findById(req.params.id);
-    if (!pkg) {
-      return res.status(404).json({ msg: 'Package not found' });
-    }
-    res.status(200).json(pkg);
-  } catch (err) {
-    res.status(500).json({ msg: 'Failed to fetch package', error: err.message });
-  }
-});
-
-// ✅ POST /create (Admin only with image upload)
+// ✅ POST /create (Admin only with image upload) -- MUST COME FIRST
 router.post(
   '/create',
   authMiddleware,
@@ -74,5 +51,28 @@ router.post(
     }
   }
 );
+
+// ✅ GET all packages (Public)
+router.get('/', async (req, res) => {
+  try {
+    const packages = await Package.find();
+    res.status(200).json(packages);
+  } catch (err) {
+    res.status(500).json({ msg: 'Failed to fetch packages', error: err.message });
+  }
+});
+
+// ✅ GET package by ID (Public)
+router.get('/:id', async (req, res) => {
+  try {
+    const pkg = await Package.findById(req.params.id);
+    if (!pkg) {
+      return res.status(404).json({ msg: 'Package not found' });
+    }
+    res.status(200).json(pkg);
+  } catch (err) {
+    res.status(500).json({ msg: 'Failed to fetch package', error: err.message });
+  }
+});
 
 module.exports = router;
