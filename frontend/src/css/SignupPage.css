@@ -1,0 +1,58 @@
+/* SignupPage.css - Scoped with sp- prefix */
+
+.sp-page {
+    max-width: 450px;
+    margin: 80px auto;
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    font-family: Arial, sans-serif;
+  }
+  
+  .sp-title {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 1.6rem;
+    color: #333;
+  }
+  
+  .sp-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sp-label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .sp-input {
+    padding: 10px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .sp-button {
+    padding: 10px;
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .sp-button:hover {
+    background-color: #005fa3;
+  }
+  
+  .sp-login-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #444;
+  }
+  

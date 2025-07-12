@@ -1,0 +1,53 @@
+/* Navbar.css - Scoped styles for Navbar component */
+
+.nb-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #eaeaea;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  .nb-left,
+  .nb-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .nb-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #0077cc;
+  }
+  
+  .nb-link {
+    text-decoration: none;
+    color: #444;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  
+  .nb-link:hover {
+    color: #0077cc;
+  }
+  
+  .nb-button {
+    padding: 6px 14px;
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .nb-button:hover {
+    background-color: #005fa3;
+  }
+  

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../../css/ApproveBookings.css'; // ✅ Make sure this path is correct
 
 const ApproveBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -7,12 +8,24 @@ const ApproveBookings = () => {
   const fetchPending = async () => {
     try {
       const res = await axios.get('http://localhost:5000/api/bookings/pending', {
-        withCredentials: true, // ✅ This is the line you asked about
+        withCredentials: true,
       });
       setBookings(res.data);
     } catch (err) {
-      console.error('Failed to fetch pending bookings:', err);
+      console.error('Failed to fetch bookings:', err);
       alert('⚠️ You must be logged in as an admin to view this page.');
+    }
+  };
+
+  const handleDecision = async (id, action) => {
+    try {
+      const url = `http://localhost:5000/api/bookings/${action}/${id}`;
+      await axios.put(url, {}, { withCredentials: true });
+      alert(`Booking ${action}d successfully.`);
+      fetchPending();
+    } catch (err) {
+      console.error(`Error ${action}ing booking:`, err);
+      alert('Action failed.');
     }
   };
 
@@ -21,30 +34,56 @@ const ApproveBookings = () => {
   }, []);
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h2>📝 Pending Bookings</h2>
+    <div id="approve-bookings-page">
+      <h2 className="approve-heading">📝 Pending Bookings</h2>
       {bookings.length === 0 ? (
-        <p>No pending bookings found.</p>
+        <p className="no-bookings">No bookings available to manage.</p>
       ) : (
         bookings.map((b) => (
-          <div
-            key={b._id}
-            style={{
-              border: '1px solid #ccc',
-              borderRadius: '8px',
-              padding: '1rem',
-              marginBottom: '1rem',
-              backgroundColor: '#f9f9f9',
-            }}
-          >
-            <p><strong>User:</strong> {b.user.name} ({b.user.email})</p>
-            <p><strong>Package:</strong> {b.package.packageName} - {b.package.location}</p>
-            <p><strong>Booking Date:</strong> {new Date(b.bookingDate).toLocaleDateString()}</p>
-            <div style={{ marginTop: '0.5rem' }}>
-              <button onClick={() => handleDecision(b._id, 'approved')} style={{ marginRight: '1rem', backgroundColor: '#4CAF50', color: '#fff', padding: '0.5rem 1rem', border: 'none', borderRadius: '4px' }}>
+          <div key={b._id} className="booking-card">
+            <div className="booking-info">
+              <p><strong>User:</strong> {b.user.name} ({b.user.email})</p>
+              <p><strong>Package:</strong> {b.package.packageName} - {b.package.location}</p>
+              <p><strong>Status:</strong> {b.status}</p>
+              <p><strong>Booking Date:</strong> {new Date(b.bookingDate).toLocaleDateString()}</p>
+              <p><strong>Days:</strong> {b.numDays}</p>
+              <p><strong>Mobile:</strong> {b.mobileNumber}</p>
+            </div>
+
+            <div className="booking-images">
+              <div>
+                <p><strong>ID Proof:</strong></p>
+                {b.idProof && (
+                  <img
+                    src={`http://localhost:5000/${b.idProof}`}
+                    alt="ID Proof"
+                    className="preview-image"
+                  />
+                )}
+              </div>
+              <div>
+                <p><strong>Personal Photo:</strong></p>
+                {b.personalPhoto && (
+                  <img
+                    src={`http://localhost:5000/${b.personalPhoto}`}
+                    alt="Personal"
+                    className="preview-image"
+                  />
+                )}
+              </div>
+            </div>
+
+            <div className="booking-actions">
+              <button
+                className="approve-btn"
+                onClick={() => handleDecision(b._id, 'approve')}
+              >
                 ✅ Approve
               </button>
-              <button onClick={() => handleDecision(b._id, 'rejected')} style={{ backgroundColor: '#f44336', color: '#fff', padding: '0.5rem 1rem', border: 'none', borderRadius: '4px' }}>
+              <button
+                className="reject-btn"
+                onClick={() => handleDecision(b._id, 'reject')}
+              >
                 ❌ Reject
               </button>
             </div>

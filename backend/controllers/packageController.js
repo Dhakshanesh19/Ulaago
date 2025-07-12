@@ -16,7 +16,13 @@ exports.createPackage = async (req, res) => {
       facilities,
     } = req.body;
 
-    const coverImageUrl = req.file ? req.file.filename : null;
+    // ✅ Store full path for image so frontend can load it
+    const coverImageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+
+    // ✅ Only allow admins to create packages
+    if (!req.user || req.user.role !== 'admin') {
+      return res.status(403).json({ msg: 'Unauthorized. Only admins can create packages.' });
+    }
 
     const newPackage = new Package({
       packageName,
@@ -28,8 +34,9 @@ exports.createPackage = async (req, res) => {
       vlogLink,
       contactName,
       contactNumber,
-      coverImageUrl,
       facilities,
+      coverImageUrl,
+      createdBy: req.user._id, // ✅ Link package to admin
     });
 
     await newPackage.save();
@@ -75,6 +82,17 @@ exports.deletePackage = async (req, res) => {
     res.status(200).json({ msg: 'Package deleted successfully' });
   } catch (err) {
     console.error('Delete Package Error:', err);
+    res.status(500).json({ msg: 'Server error', error: err.message });
+  }
+};
+
+// ✅ Get packages created by current admin
+exports.getMyPackages = async (req, res) => {
+  try {
+    const packages = await Package.find({ createdBy: req.user.id });
+    res.status(200).json(packages);
+  } catch (err) {
+    console.error('Get My Packages Error:', err);
     res.status(500).json({ msg: 'Server error', error: err.message });
   }
 };

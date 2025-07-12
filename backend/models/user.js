@@ -4,11 +4,14 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    trim: true,
   },
   email: {
     type: String,
     unique: true,
     required: true,
+    lowercase: true,
+    trim: true,
   },
   password: {
     type: String,
@@ -20,10 +23,8 @@ const userSchema = new mongoose.Schema({
     default: 'user',
   },
   idProof: {
-    type: String, // Filename of uploaded proof
-    required: function () {
-      return this.role === 'admin';
-    },
+    type: String, // Filename (only for admins)
+    default: null,
   },
 });
 

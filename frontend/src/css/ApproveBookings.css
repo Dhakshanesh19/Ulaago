@@ -1,0 +1,84 @@
+#approve-bookings-page {
+    padding: 2rem;
+    background-color: #f5f7fa;
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+  }
+  
+  .approve-heading {
+    font-size: 2rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .no-bookings {
+    text-align: center;
+    color: #777;
+    font-size: 1.1rem;
+  }
+  
+  .booking-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .booking-card:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+  }
+  
+  .booking-info p {
+    margin: 0.4rem 0;
+    color: #333;
+    font-size: 0.95rem;
+  }
+  
+  .booking-images {
+    display: flex;
+    gap: 2rem;
+    margin: 1rem 0;
+  }
+  
+  .preview-image {
+    width: 160px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    object-fit: cover;
+  }
+  
+  .booking-actions {
+    margin-top: 1rem;
+  }
+  
+  .approve-btn,
+  .reject-btn {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: 500;
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .approve-btn {
+    background-color: #2ecc71;
+  }
+  
+  .approve-btn:hover {
+    background-color: #27ae60;
+  }
+  
+  .reject-btn {
+    background-color: #e74c3c;
+  }
+  
+  .reject-btn:hover {
+    background-color: #c0392b;
+  }
+  

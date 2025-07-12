@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AdminSignupPage = () => {
+  const navigate = useNavigate(); // ✅ Hook for navigation
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,19 +28,21 @@ const AdminSignupPage = () => {
     data.append('name', formData.name);
     data.append('email', formData.email);
     data.append('password', formData.password);
-    data.append('role', 'admin'); // important: add role explicitly
+    data.append('role', 'admin');
     if (formData.idProof) {
       data.append('idProof', formData.idProof);
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/signup', data, {
+      const res = await axios.post('http://localhost:5000/api/auth/admin/signup', data, {
         headers: { 'Content-Type': 'multipart/form-data' },
-        withCredentials: true, // if cookie-based auth
+        withCredentials: true,
       });
 
       alert('✅ Admin signed up successfully');
-      console.log('Response:', res.data);
+
+      // ✅ Redirect to admin login
+      navigate('/admin/login');
     } catch (err) {
       console.error('Signup Error:', err.response?.data || err.message);
       alert(err.response?.data?.msg || 'Signup failed');
@@ -45,37 +50,59 @@ const AdminSignupPage = () => {
   };
 
   return (
-    <div>
-      <h2>Admin Signup</h2>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+    <div className="admin-signup-page" id="admin-signup-page">
+      <h2 className="admin-signup-title">Admin Signup</h2>
+      <form
+        className="admin-signup-form"
+        id="admin-signup-form"
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+      >
+        <label htmlFor="admin-name" className="admin-signup-label">Name</label>
         <input
+          id="admin-name"
           name="name"
+          type="text"
+          value={formData.name}
           onChange={handleChange}
-          placeholder="Name"
+          className="admin-signup-input"
           required
         />
+
+        <label htmlFor="admin-email" className="admin-signup-label">Email</label>
         <input
+          id="admin-email"
           name="email"
           type="email"
+          value={formData.email}
           onChange={handleChange}
-          placeholder="Email"
+          className="admin-signup-input"
           required
         />
+
+        <label htmlFor="admin-password" className="admin-signup-label">Password</label>
         <input
+          id="admin-password"
           name="password"
           type="password"
+          value={formData.password}
           onChange={handleChange}
-          placeholder="Password"
+          className="admin-signup-input"
           required
         />
+
+        <label htmlFor="admin-idProof" className="admin-signup-label">ID Proof</label>
         <input
+          id="admin-idProof"
           type="file"
           name="idProof"
           onChange={handleFileChange}
+          className="admin-signup-input"
           accept="image/*,.pdf"
           required
         />
-        <button type="submit">Signup</button>
+
+        <button type="submit" className="admin-signup-button">Signup</button>
       </form>
     </div>
   );

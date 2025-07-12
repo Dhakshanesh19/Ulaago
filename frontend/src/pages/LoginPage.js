@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import '../css/LoginPage.css'; // ✅ CSS path relative to src/components or src/pages
 
 const LoginPage = ({ onLogin }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const searchParams = new URLSearchParams(location.search);
+  const redirectPath = searchParams.get('redirect') || '/home';
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -16,42 +22,69 @@ const LoginPage = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const trimmedEmail = formData.email.trim();
+    const trimmedPassword = formData.password.trim();
+
+    if (!trimmedEmail || !trimmedPassword) {
+      alert('Please fill in all fields');
+      return;
+    }
+
     try {
       const res = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
-          email: formData.email.trim(),
-          password: formData.password.trim(),
+          email: trimmedEmail,
+          password: trimmedPassword,
+          role: 'user',
         }),
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        alert('Login successful');
-        onLogin(data.user); // pass to global state
-        navigate('/home');
+        alert('✅ Login successful');
+        onLogin(data.user);
+        navigate(redirectPath);
       } else {
         alert(data.msg || 'Login failed');
+        console.warn('Login response:', data);
       }
     } catch (err) {
-      alert('Server error');
-      console.error(err);
+      console.error('Login error:', err);
+      alert('❌ Server error during login');
     }
   };
 
   return (
-    <div>
-      <h2>User Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Email</label>
-        <input type="email" name="email" onChange={handleChange} required />
+    <div className="lp-page" id="lp-user-login-page">
+      <h2 className="lp-title">Login to Continue</h2>
+      <form className="lp-form" id="lp-user-login-form" onSubmit={handleSubmit}>
+        <label htmlFor="email" className="lp-label">Email</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          className="lp-input"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
 
-        <label>Password</label>
-        <input type="password" name="password" onChange={handleChange} required />
+        <label htmlFor="password" className="lp-label">Password</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          className="lp-input"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
 
-        <button type="submit">Login</button>
+        <button type="submit" className="lp-button">Login</button>
       </form>
     </div>
   );

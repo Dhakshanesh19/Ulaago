@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../../css/AdminLoginPage.css';
 
 const AdminLoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState('');
@@ -11,48 +12,60 @@ const AdminLoginPage = ({ onLogin }) => {
     e.preventDefault();
 
     try {
-      // ✅ FIRST login request to get cookie/token
       const res = await axios.post(
         'http://localhost:5000/api/auth/login',
-        { email, password },
-        { withCredentials: true } // important for sending cookie
+        {
+          email: email.trim(),
+          password: password.trim(),
+          role: 'admin',
+        },
+        { withCredentials: true }
       );
 
-      if (res.data.user.role !== 'admin') {
-        return alert('Access denied');
+      const user = res.data.user;
+
+      if (user.role !== 'admin') {
+        return alert('❌ Access denied: not an admin');
       }
 
-      // ✅ Optionally test protected route after login (not required here)
-      // await axios.get('http://localhost:5000/api/bookings/pending', { withCredentials: true });
-
-      onLogin(res.data.user);
+      onLogin(user);
       navigate('/admin/dashboard');
     } catch (err) {
-      console.error('Login error:', err);
+      console.error('Admin Login Error:', err);
       alert(err.response?.data?.msg || 'Login failed');
     }
   };
 
   return (
-    <div>
-      <h2>Admin Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        <button type="submit">Login</button>
-      </form>
+    <div className="admin-login-container" id="admin-login-page">
+      <div className="admin-login-box">
+        <h2 className="admin-login-title">🔐 Admin Login</h2>
+        <form onSubmit={handleSubmit} className="admin-login-form" id="admin-login-form">
+          <label htmlFor="admin-email" className="admin-login-label">Email</label>
+          <input
+            id="admin-email"
+            type="email"
+            name="email"
+            className="admin-login-input"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <label htmlFor="admin-password" className="admin-login-label">Password</label>
+          <input
+            id="admin-password"
+            type="password"
+            name="password"
+            className="admin-login-input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <button type="submit" className="admin-login-button">Login</button>
+        </form>
+      </div>
     </div>
   );
 };

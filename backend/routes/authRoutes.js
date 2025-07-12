@@ -2,15 +2,21 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
 const authMiddleware = require('../middleware/authMiddleware');
+const upload = require('../middleware/uploadMiddleware'); // multer instance
 
-// Existing routes here...
-router.post('/login', authController.login);
+// 🧍 User Signup (no file upload)
 router.post('/signup', authController.signup);
-router.get('/me', authMiddleware, authController.getCurrentUser);
 
-// ✅ Add this debug test route:
-router.get('/test-auth', authMiddleware, (req, res) => {
-  res.json({ msg: '✅ You are authenticated!', user: req.user });
-});
+// 👮 Admin Signup (requires file upload: idProof)
+router.post('/admin/signup', upload.single('idProof'), authController.signup);
+
+// 🔐 Login (shared endpoint, role will be validated inside controller)
+router.post('/login', authController.login);
+
+// 🚪 Logout
+router.post('/logout', authController.logout);
+
+// ✅ Get logged-in user info
+router.get('/me', authMiddleware, authController.getCurrentUser);
 
 module.exports = router;

@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../../components/AdminNavbar';
-
-import { useEffect } from 'react';
+import axios from 'axios';
+import '../../css/AdminDashboard.css'; // 🧾 Styled version
 
 const AdminDashboard = ({ user }) => {
   const navigate = useNavigate();
+  const [completedCount, setCompletedCount] = useState(0);
 
   useEffect(() => {
     if (!user || user.role !== 'admin') {
@@ -13,12 +14,54 @@ const AdminDashboard = ({ user }) => {
     }
   }, [user, navigate]);
 
+  useEffect(() => {
+    const fetchCompletedCount = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/bookings/completed-count', {
+          withCredentials: true,
+        });
+        setCompletedCount(res.data.completedTrips || 0);
+      } catch (err) {
+        console.error('Failed to fetch completed trip count', err);
+      }
+    };
+
+    fetchCompletedCount();
+  }, []);
+
   return (
-    <div>
+    <div id="admin-dashboard-page">
       <AdminNavbar user={user} />
-      <h2>Admin Dashboard</h2>
-      <button onClick={() => navigate('/admin/approve-bookings')}>Manage Booking Requests</button>
-      <button onClick={() => navigate('/create-package')}>Create Package</button>
+      <div className="admin-dashboard-container">
+        <h1 className="admin-dashboard-heading">🏁 Admin Dashboard</h1>
+
+        <div className="admin-dashboard-card stats-card">
+          <h2>✅ Trips Completed</h2>
+          <p className="completed-count">{completedCount}</p>
+        </div>
+
+        <div className="admin-dashboard-cards">
+          <div className="admin-dashboard-card" onClick={() => navigate('/admin/approve-bookings')}>
+            <h3>📝 Booking Requests</h3>
+            <p>Approve or reject user bookings</p>
+          </div>
+
+          <div className="admin-dashboard-card" onClick={() => navigate('/create-package')}>
+            <h3>📦 Create Package</h3>
+            <p>Add new travel packages to Ulaago</p>
+          </div>
+
+          <div className="admin-dashboard-card" onClick={() => navigate('/admin/history')}>
+            <h3>📜 Booking History</h3>
+            <p>View all past approved/rejected bookings</p>
+          </div>
+
+          <div className="admin-dashboard-card" onClick={() => navigate('/admin/active-bookings')}>
+            <h3>🔄 Active Bookings</h3>
+            <p>View bookings not yet marked completed</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

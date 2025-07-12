@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import '../css/SignupPage.css'; // ✅ Adjust path if needed
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -28,7 +29,11 @@ const SignupPage = () => {
       const res = await fetch('http://localhost:5000/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email: email.trim(), password: password.trim() }),
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          password: password.trim(),
+        }),
       });
 
       const data = await res.json();
@@ -46,24 +51,55 @@ const SignupPage = () => {
   };
 
   return (
-    <div>
-      <h2>User Signup</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Name</label>
-        <input type="text" name="name" onChange={handleChange} required />
+    <div className="sp-page" id="sp-user-signup-page">
+      <h2 className="sp-title">User Signup</h2>
+      <form className="sp-form" id="sp-user-signup-form" onSubmit={handleSubmit}>
+        <label htmlFor="name" className="sp-label">Name</label>
+        <input
+          id="name"
+          type="text"
+          name="name"
+          className="sp-input"
+          onChange={handleChange}
+          required
+        />
 
-        <label>Email</label>
-        <input type="email" name="email" onChange={handleChange} required />
+        <label htmlFor="email" className="sp-label">Email</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          className="sp-input"
+          onChange={handleChange}
+          required
+        />
 
-        <label>Password</label>
-        <input type="password" name="password" onChange={handleChange} required />
+        <label htmlFor="password" className="sp-label">Password</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          className="sp-input"
+          onChange={handleChange}
+          required
+        />
 
-        <label>Confirm Password</label>
-        <input type="password" name="confirmPassword" onChange={handleChange} required />
+        <label htmlFor="confirmPassword" className="sp-label">Confirm Password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          name="confirmPassword"
+          className="sp-input"
+          onChange={handleChange}
+          required
+        />
 
-        <button type="submit">Signup</button>
+        <button type="submit" className="sp-button">Signup</button>
       </form>
-      <p>Already have an account? <Link to="/login">Login here</Link></p>
+
+      <p className="sp-login-link">
+        Already have an account? <Link to="/login">Login here</Link>
+      </p>
     </div>
   );
 };
