@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../../components/AdminNavbar';
 import axios from 'axios';
-import '../../css/AdminDashboard.css'; // 🧾 Styled version
+import '../../css/AdminDashboard.css';
 
 const AdminDashboard = ({ user }) => {
   const navigate = useNavigate();
   const [completedCount, setCompletedCount] = useState(0);
+
+  const API_BASE = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     if (!user || user.role !== 'admin') {
@@ -17,7 +19,7 @@ const AdminDashboard = ({ user }) => {
   useEffect(() => {
     const fetchCompletedCount = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/bookings/completed-count', {
+        const res = await axios.get(`${API_BASE}/api/bookings/completed-count`, {
           withCredentials: true,
         });
         setCompletedCount(res.data.completedTrips || 0);
@@ -27,7 +29,7 @@ const AdminDashboard = ({ user }) => {
     };
 
     fetchCompletedCount();
-  }, []);
+  }, [API_BASE]);
 
   return (
     <div id="admin-dashboard-page">

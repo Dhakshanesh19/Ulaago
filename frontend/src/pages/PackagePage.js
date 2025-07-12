@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../css/PackagePage.css'; // ✅ Correct path for CSS
+import '../css/PackagePage.css';
 
 const PackagePage = () => {
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  const API_BASE = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
-    fetch('http://localhost:5000/api/packages')
+    fetch(`${API_BASE}/api/packages`)
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch packages');
         return res.json();
@@ -21,7 +23,7 @@ const PackagePage = () => {
         console.error('❌ Error fetching packages:', err);
         setLoading(false);
       });
-  }, []);
+  }, [API_BASE]);
 
   const handleBookNow = (packageId) => {
     navigate(`/book/${packageId}`);
@@ -40,7 +42,7 @@ const PackagePage = () => {
             <div className="pp-card" key={pkg._id}>
               <img
                 className="pp-image"
-                src={`http://localhost:5000${pkg.coverImageUrl}`}
+                src={`${API_BASE}${pkg.coverImageUrl}`}
                 alt={pkg.packageName}
               />
               <h3 className="pp-title">{pkg.packageName}</h3>

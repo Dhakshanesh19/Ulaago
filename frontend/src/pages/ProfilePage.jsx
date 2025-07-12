@@ -12,10 +12,12 @@ const ProfilePage = ({ user }) => {
   const [loading, setLoading] = useState(!user);
   const [bookings, setBookings] = useState([]);
 
+  const API_BASE = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/auth/me', {
+        const res = await axios.get(`${API_BASE}/api/auth/me`, {
           withCredentials: true,
         });
         setLoggedInUser(res.data.user);
@@ -27,11 +29,11 @@ const ProfilePage = ({ user }) => {
     };
 
     if (!user) fetchUser();
-  }, [user, navigate]);
+  }, [user, navigate, API_BASE]);
 
   const fetchBookings = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/bookings/my', {
+      const res = await fetch(`${API_BASE}/api/bookings/my`, {
         credentials: 'include',
       });
       const data = await res.json();
@@ -50,7 +52,7 @@ const ProfilePage = ({ user }) => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this booking?')) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/bookings/${id}`, {
+      const res = await fetch(`${API_BASE}/api/bookings/${id}`, {
         method: 'DELETE',
         credentials: 'include',
       });
@@ -75,7 +77,7 @@ const ProfilePage = ({ user }) => {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/bookings/${id}`, {
+      const res = await fetch(`${API_BASE}/api/bookings/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

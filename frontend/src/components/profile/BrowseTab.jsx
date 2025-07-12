@@ -7,7 +7,7 @@ const BrowseTab = () => {
   useEffect(() => {
     const fetchPackages = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/packages');
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/packages`);
         setPackages(res.data);
       } catch (err) {
         console.error('Failed to fetch packages:', err);

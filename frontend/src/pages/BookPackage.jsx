@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../css/BookPackagePage.css'; // scoped CSS
 
+const API = process.env.REACT_APP_API_URL;
+
 const BookPackagePage = ({ user, onLogin }) => {
   const { packageId } = useParams();
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ const BookPackagePage = ({ user, onLogin }) => {
   useEffect(() => {
     const fetchPackage = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/packages/${packageId}`);
+        const res = await fetch(`${API}/api/packages/${packageId}`);
         if (!res.ok) throw new Error('Failed to fetch package');
         const data = await res.json();
         setPkg(data);
@@ -34,7 +36,7 @@ const BookPackagePage = ({ user, onLogin }) => {
 
   useEffect(() => {
     if (!user) {
-      fetch('http://localhost:5000/api/auth/me', { credentials: 'include' })
+      fetch(`${API}/api/auth/me`, { credentials: 'include' })
         .then((res) => {
           if (!res.ok) throw new Error('Not logged in');
           return res.json();
@@ -63,7 +65,7 @@ const BookPackagePage = ({ user, onLogin }) => {
     formData.append('personalPhoto', form.personalPhoto);
 
     try {
-      const res = await fetch('http://localhost:5000/api/bookings', {
+      const res = await fetch(`${API}/api/bookings`, {
         method: 'POST',
         body: formData,
         credentials: 'include',
@@ -89,7 +91,7 @@ const BookPackagePage = ({ user, onLogin }) => {
 
         <img
           className="bp-image"
-          src={`http://localhost:5000${pkg.coverImageUrl.startsWith('/') ? '' : '/'}${pkg.coverImageUrl}`}
+          src={`${API}${pkg.coverImageUrl.startsWith('/') ? '' : '/'}${pkg.coverImageUrl}`}
           alt={pkg.packageName}
         />
 

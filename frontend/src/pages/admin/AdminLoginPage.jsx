@@ -8,12 +8,14 @@ const AdminLoginPage = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  const API_BASE = process.env.REACT_APP_API_URL;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const res = await axios.post(
-        'http://localhost:5000/api/auth/login',
+        `${API_BASE}/api/auth/login`,
         {
           email: email.trim(),
           password: password.trim(),

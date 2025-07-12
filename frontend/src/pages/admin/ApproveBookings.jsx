@@ -7,7 +7,7 @@ const ApproveBookings = () => {
 
   const fetchPending = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/bookings/pending', {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/bookings/pending`, {
         withCredentials: true,
       });
       setBookings(res.data);
@@ -19,7 +19,7 @@ const ApproveBookings = () => {
 
   const handleDecision = async (id, action) => {
     try {
-      const url = `http://localhost:5000/api/bookings/${action}/${id}`;
+      const url = `${process.env.REACT_APP_API_URL}/api/bookings/${action}/${id}`;
       await axios.put(url, {}, { withCredentials: true });
       alert(`Booking ${action}d successfully.`);
       fetchPending();
@@ -55,7 +55,7 @@ const ApproveBookings = () => {
                 <p><strong>ID Proof:</strong></p>
                 {b.idProof && (
                   <img
-                    src={`http://localhost:5000/${b.idProof}`}
+                    src={`${process.env.REACT_APP_API_URL}/${b.idProof}`}
                     alt="ID Proof"
                     className="preview-image"
                   />
@@ -65,7 +65,7 @@ const ApproveBookings = () => {
                 <p><strong>Personal Photo:</strong></p>
                 {b.personalPhoto && (
                   <img
-                    src={`http://localhost:5000/${b.personalPhoto}`}
+                    src={`${process.env.REACT_APP_API_URL}/${b.personalPhoto}`}
                     alt="Personal"
                     className="preview-image"
                   />

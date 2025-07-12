@@ -8,7 +8,7 @@ const History = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/bookings/history', {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/bookings/history`, {
           withCredentials: true,
         });
         setHistory(res.data);
@@ -43,7 +43,7 @@ const History = () => {
           <div>
             <p><strong>ID Proof:</strong></p>
             <img
-              src={`http://localhost:5000/${b.idProof}`}
+              src={`${process.env.REACT_APP_API_URL}/${b.idProof}`}
               alt="ID Proof"
               className="history-img"
             />
@@ -53,7 +53,7 @@ const History = () => {
           <div>
             <p><strong>Personal Photo:</strong></p>
             <img
-              src={`http://localhost:5000/${b.personalPhoto}`}
+              src={`${process.env.REACT_APP_API_URL}/${b.personalPhoto}`}
               alt="Personal"
               className="history-img"
             />

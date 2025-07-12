@@ -18,21 +18,23 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import ApproveBookings from './pages/admin/ApproveBookings';
 import ActiveBookings from './pages/admin/ActiveBookings';
 import History from './pages/admin/History';
+
 function App() {
   const [user, setUser] = useState(null);
+  const API_BASE = process.env.REACT_APP_API_URL;
 
   // ✅ Fetch user on initial mount from cookie (persistent login)
   useEffect(() => {
     const fetchLoggedInUser = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/auth/me', {
-          credentials: 'include', // required for cookies
+        const res = await fetch(`${API_BASE}/api/auth/me`, {
+          credentials: 'include',
         });
         if (!res.ok) {
-          setUser(null); // ensure state cleared
+          setUser(null);
           return;
         }
-                const data = await res.json();
+        const data = await res.json();
         setUser(data.user);
       } catch {
         setUser(null);
@@ -40,19 +42,19 @@ function App() {
     };
 
     fetchLoggedInUser();
-  }, []);
+  }, [API_BASE]);
 
   // ✅ Logout: clear cookie + state + full reload
   const handleLogout = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/auth/logout', {
+      const res = await fetch(`${API_BASE}/api/auth/logout`, {
         method: 'POST',
         credentials: 'include',
       });
 
       if (res.ok) {
         setUser(null);
-        window.location.href = '/'; // Full reload ensures all components reset
+        window.location.href = '/';
       } else {
         alert('Logout failed. Please try again.');
       }
@@ -64,7 +66,6 @@ function App() {
 
   return (
     <Router>
-      {/* ✅ Global Navbar - receives user and logout handler */}
       <Navbar user={user} onLogout={handleLogout} />
 
       <Routes>
@@ -85,7 +86,6 @@ function App() {
         <Route path="/admin/approve-bookings" element={<ApproveBookings />} />
         <Route path="/admin/history" element={<History />} />
         <Route path="/admin/active-bookings" element={<ActiveBookings />} />
-
       </Routes>
     </Router>
   );

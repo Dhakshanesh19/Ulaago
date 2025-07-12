@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const AdminSignupPage = () => {
-  const navigate = useNavigate(); // ✅ Hook for navigation
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -34,14 +34,16 @@ const AdminSignupPage = () => {
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/admin/signup', data, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/auth/admin/signup`,
+        data,
+        {
+          headers: { 'Content-Type': 'multipart/form-data' },
+          withCredentials: true,
+        }
+      );
 
       alert('✅ Admin signed up successfully');
-
-      // ✅ Redirect to admin login
       navigate('/admin/login');
     } catch (err) {
       console.error('Signup Error:', err.response?.data || err.message);

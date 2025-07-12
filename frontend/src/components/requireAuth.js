@@ -10,7 +10,7 @@ const RequireAuth = ({ children }) => {
   const location = useLocation();
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/auth/me', { withCredentials: true })
+    axios.get(`${process.env.REACT_APP_API_URL}/api/auth/me`, { withCredentials: true })
       .then(res => {
         setAuthenticated(true);
         setLoading(false);

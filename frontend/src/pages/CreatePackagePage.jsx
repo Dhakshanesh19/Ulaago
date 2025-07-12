@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import '../css/CreatePackagePage.css';
 import createImg from '../assets/create.jpg';
 
+const API = process.env.REACT_APP_API_URL;
+
 const CreatePackagePage = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -29,7 +31,7 @@ const CreatePackagePage = () => {
     Object.entries(form).forEach(([key, value]) => formData.append(key, value));
 
     try {
-      const res = await fetch('http://localhost:5000/api/packages/create', {
+      const res = await fetch(`${API}/api/packages/create`, {
         method: 'POST',
         body: formData,
         credentials: 'include',

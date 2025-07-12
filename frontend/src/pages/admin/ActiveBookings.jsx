@@ -6,9 +6,11 @@ const ActiveBookings = () => {
   const [activeBookings, setActiveBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const API_BASE = process.env.REACT_APP_API_URL;
+
   const fetchActive = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/bookings/approved-active', {
+      const res = await axios.get(`${API_BASE}/api/bookings/approved-active`, {
         withCredentials: true,
       });
       setActiveBookings(res.data);
@@ -22,7 +24,7 @@ const ActiveBookings = () => {
 
   const markCompleted = async (bookingId) => {
     try {
-      await axios.put(`http://localhost:5000/api/bookings/complete/${bookingId}`, {}, {
+      await axios.put(`${API_BASE}/api/bookings/complete/${bookingId}`, {}, {
         withCredentials: true,
       });
       alert('✅ Booking marked as completed!');

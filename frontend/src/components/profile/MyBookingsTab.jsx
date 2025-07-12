@@ -7,7 +7,9 @@ const MyBookingsTab = ({ user }) => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/bookings?userId=${user?._id}`);
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/bookings?userId=${user?._id}`
+        );
         setBookings(res.data);
       } catch (err) {
         console.error('Failed to fetch bookings:', err);
@@ -26,7 +28,7 @@ const MyBookingsTab = ({ user }) => {
         <p>No bookings found.</p>
       ) : (
         <ul>
-          {bookings.map(booking => (
+          {bookings.map((booking) => (
             <li key={booking._id}>
               <strong>{booking.packageName}</strong> on {booking.date}
             </li>

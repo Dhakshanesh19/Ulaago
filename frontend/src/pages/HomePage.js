@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../css/HomePage.css'; // ✅ Adjust this if needed
+import '../css/HomePage.css';
+
+const API = process.env.REACT_APP_API_URL;
 
 const HomePage = ({ user, onLogin, onLogout }) => {
   const navigate = useNavigate();
@@ -9,7 +11,7 @@ const HomePage = ({ user, onLogin, onLogout }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/auth/me', {
+        const res = await fetch(`${API}/api/auth/me`, {
           credentials: 'include',
         });
         if (!res.ok) throw new Error('Not logged in');
@@ -23,7 +25,7 @@ const HomePage = ({ user, onLogin, onLogout }) => {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/packages')
+    fetch(`${API}/api/packages`)
       .then(res => res.json())
       .then(data => setPackages(data.slice(0, 3)))
       .catch(err => console.error('Failed to fetch packages:', err));
@@ -35,7 +37,7 @@ const HomePage = ({ user, onLogin, onLogout }) => {
 
   const handleBookNow = async (packageId) => {
     try {
-      const res = await fetch('http://localhost:5000/api/auth/me', {
+      const res = await fetch(`${API}/api/auth/me`, {
         credentials: 'include',
       });
       if (!res.ok) throw new Error('Not logged in');
@@ -65,7 +67,7 @@ const HomePage = ({ user, onLogin, onLogout }) => {
             packages.map((pkg) => (
               <div className="hp-package-card" key={pkg._id}>
                 <img
-                  src={`http://localhost:5000${pkg.coverImageUrl}`}
+                  src={`${API}${pkg.coverImageUrl}`}
                   alt={pkg.packageName}
                   className="hp-package-img"
                 />
