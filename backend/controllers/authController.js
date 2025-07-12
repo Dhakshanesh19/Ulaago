@@ -1,4 +1,3 @@
-// backend/controllers/authController.js
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -48,7 +47,7 @@ exports.signup = async (req, res) => {
   }
 };
 
-// ✅ Login Controller (blocks admin from logging in via user login form if role mismatch)
+// ✅ Login Controller
 exports.login = async (req, res) => {
   const { email, password, role } = req.body;
 
@@ -56,7 +55,6 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ msg: 'User not found' });
 
-    // If role is provided in request, make sure it matches stored role
     if (role && role !== user.role) {
       return res.status(403).json({ msg: `You are not allowed to login as ${role}` });
     }
@@ -68,12 +66,12 @@ exports.login = async (req, res) => {
       expiresIn: '1d',
     });
 
-    // ✅ Set token in cookie
+    // ✅ Secure cookie settings
     res.cookie('token', token, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'Lax',
-      maxAge: 24 * 60 * 60 * 1000,
+      secure: true, // ✅ true only in production
+      sameSite: 'None', // ✅ required for cross-origin (Netlify → Render)
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
     res.status(200).json({ msg: 'Login successful', user });
@@ -83,7 +81,7 @@ exports.login = async (req, res) => {
   }
 };
 
-// ✅ Get Current Logged-in User
+// ✅ Get Logged-in User
 exports.getCurrentUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
@@ -96,12 +94,12 @@ exports.getCurrentUser = async (req, res) => {
   }
 };
 
-// ✅ Logout
+// ✅ Logout Controller
 exports.logout = (req, res) => {
   res.clearCookie('token', {
     httpOnly: true,
-    secure: false,
-    sameSite: 'Lax',
+    secure: true, // ✅ match login
+    sameSite: 'None',
   });
 
   return res.status(200).json({ msg: 'Logged out successfully' });
