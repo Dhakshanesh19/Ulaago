@@ -1,5 +1,5 @@
 const Booking = require('../models/booking');
-const Package = require('../models/Package'); // 👈 UPPERCASE 'P'
+const Package = require('../models/package'); // 👈 UPPERCASE 'P'
 const path = require('path');
 
 

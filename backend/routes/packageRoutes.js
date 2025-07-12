@@ -3,7 +3,7 @@ const router = express.Router();
 const upload = require('../middleware/upload');
 const authMiddleware = require('../middleware/authMiddleware');
 const isAdmin = require('../middleware/isAdmin');
-const Package = require('../models/Package');
+const Package = require('../models/package');
 
 // ✅ GET all packages (Public)
 router.get('/', async (req, res) => {
