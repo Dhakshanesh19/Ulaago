@@ -2,11 +2,43 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
     <title>React App</title>
+
+    <style>
+      img, video {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .responsive-container {
+        padding: 1rem;
+      }
+
+      @media (max-width: 768px) {
+        .responsive-flex {
+          flex-direction: column !important;
+        }
+      }
+    </style>
   </head>
+
   <body>
-    <!-- This is the element React looks for -->
     <div id="root"></div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-vA4+xS1z1q9gW8WtxWXN1Rf4lSm9ScRm3fyjPZbWbkDiU+ix9K3Ad68A2sBjPfA9"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

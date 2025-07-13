@@ -1,41 +1,53 @@
-/* LandingPage.css - Scoped styles with lp- prefix */
+/* LandingPage.css - Fully Responsive & Background Fixed */
 
 .lp-container {
   font-family: Arial, sans-serif;
   color: #fff;
   position: relative;
-  overflow: hidden;
+  z-index: 2;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
-/* Background Lottie Animation */
+/* 🌍 Fullscreen Lottie Background */
 .lp-bg-animation-wrapper {
-  position: absolute;
-  inset: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 0;
-  width: 100%;
-  height: 100%;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
 }
 
 .lp-bg-animation {
-  width: 100%;
-  height: 100%;
-  opacity: 1;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
-  pointer-events: none;
-  position: absolute;
   z-index: 0;
+  display: block;
+  min-height: 100vh;
 }
 
 .lp-dark-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.65);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
   z-index: 1;
 }
 
-/* Navbar */
+/* 🧭 Navbar */
 .lp-navbar {
   display: flex;
   justify-content: space-between;
@@ -45,6 +57,7 @@
   backdrop-filter: blur(8px);
   z-index: 3;
   position: relative;
+  flex-wrap: wrap;
 }
 
 .lp-logo h1 {
@@ -57,8 +70,9 @@
 .lp-nav-links {
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   gap: 24px;
-  margin: 0;
+  margin: 10px 0 0;
   padding: 0;
 }
 
@@ -74,7 +88,7 @@
   color: #00bcd4;
 }
 
-/* Hero Section */
+/* 🧲 Hero Section */
 .lp-hero {
   padding: 140px 20px 100px;
   text-align: center;
@@ -120,7 +134,7 @@
   background-color: #0097a7;
 }
 
-/* Features Section */
+/* 🧰 Features Section */
 .lp-features {
   padding: 80px 20px;
   background-color: #f5f5f5;
@@ -170,7 +184,7 @@
   color: #444;
 }
 
-/* About Section */
+/* 📌 About Section */
 .lp-about {
   padding: 80px 20px;
   background-color: #eaf6ff;
@@ -187,7 +201,7 @@
   margin: auto;
 }
 
-/* Footer */
+/* 🧾 Footer */
 .lp-footer {
   padding: 30px 20px;
   background-color: #222;
@@ -204,6 +218,7 @@
   gap: 20px;
   padding: 0;
   margin-top: 10px;
+  flex-wrap: wrap;
 }
 
 .lp-footer-links li a {
@@ -215,22 +230,57 @@
   text-decoration: underline;
 }
 
-/* Responsive */
-@media screen and (max-width: 768px) {
+/* 📱 Responsive Adjustments */
+@media screen and (max-width: 992px) {
   .lp-hero h2 {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
   }
 
   .lp-hero p {
     font-size: 1.1rem;
   }
 
-  .lp-feature-list {
+  .lp-navbar {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
   }
 
   .lp-nav-links {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .lp-hero h2 {
+    font-size: 2rem;
+  }
+
+  .lp-hero p {
+    font-size: 1rem;
+  }
+
+  .lp-button {
+    width: 100%;
+    padding: 14px;
+  }
+
+  .lp-feature-list {
+    gap: 20px;
+  }
+
+  .lp-feature-list li {
+    padding: 20px;
+  }
+
+  .lp-about p {
+    font-size: 1rem;
+  }
+
+  .lp-footer-links {
     flex-direction: column;
     gap: 10px;
   }

@@ -11,7 +11,14 @@ const LandingPage = () => {
       {/* 🌍 World Map Animated Background */}
       <div className="lp-bg-animation-wrapper">
   <div className="lp-dark-overlay"></div>
-  <Lottie animationData={worldMapAnimation} loop autoplay className="lp-bg-animation" />
+  <Lottie
+  animationData={worldMapAnimation}
+  loop
+  autoplay
+  className="lp-bg-animation"
+  style={{ width: '100vw', height: '100vh', objectFit: 'cover' }}
+/>
+
 </div>
 
 
